@@ -74,7 +74,7 @@
 
                         <environment>Sandbox</environment>
 
-                        <target>CloudHub-US-East-1</target>
+                        <target>Cloudhub-US-East-2</target>
 
                         <applicationName>first-project</applicationName>
 
