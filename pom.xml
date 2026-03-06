@@ -13,9 +13,8 @@
     <name>first-project</name>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mule.maven.plugin.version>4.7.0</mule.maven.plugin.version>
-        <mule.runtime.version>4.4.0</mule.runtime.version>
+        <app.runtime>4.4.0</app.runtime>
     </properties>
 
     <build>
@@ -39,21 +38,18 @@
 
                         <target>Cloudhub-US-East-2</target>
 
-                        <muleVersion>4.4.0</muleVersion>
-
                         <applicationName>first-project</applicationName>
+
+                        <muleVersion>${app.runtime}</muleVersion>
 
                         <replicas>1</replicas>
 
                         <vCores>0.1</vCores>
 
-                        <clientId>${clientId}</clientId>
-
-                        <clientSecret>${clientSecret}</clientSecret>
-
                     </cloudhub2Deployment>
 
                 </configuration>
+
             </plugin>
 
         </plugins>
