@@ -30,6 +30,26 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 			</plugin>
+			<plugin>
+			<configuration>
+        <cloudhub2Deployment>
+            <uri>https://anypoint.mulesoft.com</uri>
+
+            <environment>Sandbox</environment>
+            <target>Cloudhub-US-East-1</target>
+
+            <applicationName>first-project</applicationName>
+            <muleVersion>4.4.0</muleVersion>
+
+            <replicas>1</replicas>
+            <vCores>0.1</vCores>
+
+            <connectedAppClientId>${clientId}</connectedAppClientId>
+            <connectedAppClientSecret>${clientSecret}</connectedAppClientSecret>
+
+        </cloudhub2Deployment>
+    </configuration>
+    </plugin>
 		</plugins>
 	</build>
 
