@@ -25,18 +25,14 @@
         <mule.maven.plugin.version>4.7.0</mule.maven.plugin.version>
     </properties>
 
-
-    <!-- REQUIRED for CloudHub 2.0 (publishes artifact to Exchange) -->
+    <!-- CloudHub 2.0 Artifact Publish -->
     <distributionManagement>
         <repository>
             <id>anypoint-exchange-v3</id>
             <name>Anypoint Exchange</name>
-            <url>
-https://maven.anypoint.mulesoft.com/api/v3/organizations/87b1fed7-baa4-4eac-ad1f-698a2b1ba331/maven
-            </url>
+            <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/87b1fed7-baa4-4eac-ad1f-698a2b1ba331/maven</url>
         </repository>
     </distributionManagement>
-
 
     <build>
         <plugins>
@@ -52,39 +48,30 @@ https://maven.anypoint.mulesoft.com/api/v3/organizations/87b1fed7-baa4-4eac-ad1f
 
                     <cloudhub2Deployment>
 
-                        <!-- Anypoint Platform -->
                         <uri>https://anypoint.mulesoft.com</uri>
 
-                        <!-- Provider -->
                         <provider>MC</provider>
 
-                        <!-- Environment -->
                         <environment>Sandbox</environment>
 
-                        <!-- CloudHub 2.0 Target -->
                         <target>Cloudhub-US-East-2</target>
 
-                        <!-- App Name -->
                         <applicationName>first-project</applicationName>
 
-                        <!-- Runtime -->
                         <muleVersion>${app.runtime}</muleVersion>
 
                         <releaseChannel>EDGE</releaseChannel>
 
                         <javaVersion>17</javaVersion>
 
-                        <!-- Workers -->
                         <replicas>1</replicas>
 
                         <vCores>0.1</vCores>
 
-                        <!-- Deployment settings -->
                         <deploymentTimeout>100000</deploymentTimeout>
 
                         <skipDeploymentVerification>false</skipDeploymentVerification>
 
-                        <!-- Connected App Authentication -->
                         <connectedAppClientId>${clientId}</connectedAppClientId>
 
                         <connectedAppClientSecret>${clientSecret}</connectedAppClientSecret>
@@ -98,9 +85,7 @@ https://maven.anypoint.mulesoft.com/api/v3/organizations/87b1fed7-baa4-4eac-ad1f
             </plugin>
 
         </plugins>
-
     </build>
-
 
     <dependencies>
 
@@ -112,10 +97,17 @@ https://maven.anypoint.mulesoft.com/api/v3/organizations/87b1fed7-baa4-4eac-ad1f
             <classifier>mule-plugin</classifier>
         </dependency>
 
+        <!-- APIKit (REQUIRED because your flow uses apikit) -->
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-apikit-module</artifactId>
+            <version>1.11.11</version>
+            <classifier>mule-plugin</classifier>
+        </dependency>
+
     </dependencies>
 
-
-    <!-- MuleSoft repositories -->
+    <!-- MuleSoft Repositories -->
     <repositories>
 
         <repository>
@@ -125,18 +117,16 @@ https://maven.anypoint.mulesoft.com/api/v3/organizations/87b1fed7-baa4-4eac-ad1f
 
         <repository>
             <id>mulesoft-releases</id>
-            <url>https://repository.mulesoft.org/nexus/repository/releases/</url>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/releases/</url>
         </repository>
 
     </repositories>
 
-
-    <!-- Plugin repositories -->
     <pluginRepositories>
 
         <pluginRepository>
             <id>mulesoft-releases</id>
-            <url>https://repository.mulesoft.org/nexus/repository/releases/</url>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/releases/</url>
         </pluginRepository>
 
     </pluginRepositories>
