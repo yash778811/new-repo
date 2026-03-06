@@ -57,6 +57,8 @@
 
                         <!-- CloudHub Target -->
                         <target>Cloudhub-US-East-1</target>
+                        
+                        <region>us-east-1</region>
 
                         <!-- Application Name -->
                         <applicationName>first-project</applicationName>
