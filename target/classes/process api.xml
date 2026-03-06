@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:request-config name="HTTP_Request_config" doc:name="HTTP Request config" doc:id="a9cb7a6a-0af3-4234-ba47-e07c338a7943" >
+		<http:request-connection host="mar-1-integration-czxjnk.5sc6y6-1.usa-e2.cloudhub.io" />
+	</http:request-config>
+	<flow name="process_apiFlow" doc:id="bb12a7c1-5818-415b-9bd6-efbb6acd306c" >
+		<choice doc:name="Choice" doc:id="587e9bd3-c504-401a-b833-cd9b50dc688e" >
+			<when expression='#[payload."glossary"."GlossDiv"."GlossList"."GlossEntry"."ID" == "SMGL"]'>
+				<ee:transform doc:name="Transform Message" doc:id="67f62f36-1e09-465e-813e-0aff2750f4e3">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<http:request doc:name="Request" doc:id="1f57dc88-b436-4978-b8e7-d0ab14ca2f0b" config-ref="HTTP_Request_config" method="POST" path="/march1"/>
+				<ee:transform doc:name="Transform Message" doc:id="ef37c7b6-2e41-4a97-ae94-795c9e7c2f7d">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/yaml
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="38616673-02be-4e07-8f0f-0a84426a68d9" message="#[payload]"/>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="cd834a61-a999-443c-a888-32e7bdd266aa" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message" : "condition not satisfied"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+	</flow>
+</mule>

@@ -1,0 +1,23 @@
+#%RAML 1.0
+title: new-api
+version: v1
+protocols:
+  [HTTP, HTTPS]
+mediaType: 
+- application/json
+
+/data:
+  post:
+    body:
+      application/json:
+        example:
+          {
+            "sample" : "123"
+          }
+    responses:
+      200:
+        body:
+          application/xml:
+            example:
+              <message>SUCCESS</message>
+    
