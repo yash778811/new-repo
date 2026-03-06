@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
- http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,30 +15,44 @@
 
     <name>first-project</name>
 
+    <!-- ===================== -->
+    <!-- Properties -->
+    <!-- ===================== -->
     <properties>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Mule Runtime -->
-        <app.runtime>4.11.0</app.runtime>
+        <mule.version>4.11.0</mule.version>
 
         <!-- Mule Maven Plugin -->
         <mule.maven.plugin.version>4.7.0</mule.maven.plugin.version>
+
     </properties>
 
-    <!-- CloudHub 2.0 Artifact Publish -->
+    <!-- ===================== -->
+    <!-- Exchange Publish -->
+    <!-- ===================== -->
     <distributionManagement>
         <repository>
             <id>anypoint-exchange-v3</id>
             <name>Anypoint Exchange</name>
-            <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/87b1fed7-baa4-4eac-ad1f-698a2b1ba331/maven</url>
+            <url>
+                https://maven.anypoint.mulesoft.com/api/v3/organizations/87b1fed7-baa4-4eac-ad1f-698a2b1ba331/maven
+            </url>
         </repository>
     </distributionManagement>
 
+    <!-- ===================== -->
+    <!-- Build -->
+    <!-- ===================== -->
     <build>
+
         <plugins>
 
             <!-- Mule Maven Plugin -->
             <plugin>
+
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
                 <version>${mule.maven.plugin.version}</version>
@@ -46,6 +60,12 @@
 
                 <configuration>
 
+                    <!-- Exchange Deployment -->
+                    <exchangeDeployment>
+                        <uri>https://anypoint.mulesoft.com</uri>
+                    </exchangeDeployment>
+
+                    <!-- CloudHub 2.0 Deployment -->
                     <cloudhub2Deployment>
 
                         <uri>https://anypoint.mulesoft.com</uri>
@@ -54,11 +74,11 @@
 
                         <environment>Sandbox</environment>
 
-                        <target>Cloudhub-US-East-2</target>
+                        <target>CloudHub-US-East-1</target>
 
                         <applicationName>first-project</applicationName>
 
-                        <muleVersion>${app.runtime}</muleVersion>
+                        <muleVersion>${mule.version}</muleVersion>
 
                         <releaseChannel>EDGE</releaseChannel>
 
@@ -72,6 +92,7 @@
 
                         <skipDeploymentVerification>false</skipDeploymentVerification>
 
+                        <!-- Connected App -->
                         <connectedAppClientId>${clientId}</connectedAppClientId>
 
                         <connectedAppClientSecret>${clientSecret}</connectedAppClientSecret>
@@ -85,8 +106,12 @@
             </plugin>
 
         </plugins>
+
     </build>
 
+    <!-- ===================== -->
+    <!-- Dependencies -->
+    <!-- ===================== -->
     <dependencies>
 
         <!-- HTTP Connector -->
@@ -97,7 +122,7 @@
             <classifier>mule-plugin</classifier>
         </dependency>
 
-        <!-- APIKit (REQUIRED because your flow uses apikit) -->
+        <!-- APIKit Module -->
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-apikit-module</artifactId>
@@ -107,7 +132,9 @@
 
     </dependencies>
 
-    <!-- MuleSoft Repositories -->
+    <!-- ===================== -->
+    <!-- Repositories -->
+    <!-- ===================== -->
     <repositories>
 
         <repository>
@@ -120,13 +147,26 @@
             <url>https://repository.mulesoft.org/nexus/content/repositories/releases/</url>
         </repository>
 
+        <repository>
+            <id>mulesoft-public</id>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
+        </repository>
+
     </repositories>
 
+    <!-- ===================== -->
+    <!-- Plugin Repositories -->
+    <!-- ===================== -->
     <pluginRepositories>
 
         <pluginRepository>
             <id>mulesoft-releases</id>
             <url>https://repository.mulesoft.org/nexus/content/repositories/releases/</url>
+        </pluginRepository>
+
+        <pluginRepository>
+            <id>mulesoft-public</id>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
         </pluginRepository>
 
     </pluginRepositories>
