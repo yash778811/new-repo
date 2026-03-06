@@ -133,6 +133,7 @@ output application/xml
 payload]]></ee:set-payload>
             </ee:message>
         </ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="ba63c859-0f29-4c1c-b767-50b728396405" message="#[payload]"/>
 		<flow-ref doc:name="Flow Reference" doc:id="fc537c7f-9701-449b-8af5-f1da12ea4bd5" name="process_apiFlow"/>
     </flow>
 </mule>
